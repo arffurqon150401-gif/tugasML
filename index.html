@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AcongMobil | Prediksi Harga Mobil</title>
+    
+    <!-- Font Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- VueJS 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0b0f19;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .glow-circle-1 {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .glow-circle-2 {
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .main-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 1);
+            width: 100%;
+            max-width: 440px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            color: #0f172a;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .input-group input:focus,
+        .input-group select:focus {
+            background: #ffffff;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 0.4rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4);
+        }
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-circle-1"></div>
+    <div class="glow-circle-2"></div>
+
+    <div id="app" class="main-card p-8">
+        
+        <!-- Header Branding -->
+        <div class="text-center mb-6">
+            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 mb-3 shadow-lg shadow-indigo-500/30">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Acong Mobil</h1>
+            <p class="text-slate-500 text-sm mt-1">Sistem Prediksi Harga Mobil Bekas</p>
+        </div>
+
+        <!-- Form Input -->
+        <div>
+            <!-- Input Brand -->
+            <div class="input-group">
+                <label>Merek Kendaraan (Brand)</label>
+                <input type="text" v-model="brand" placeholder="Contoh: Ford, Toyota, BMW">
+            </div>
+
+            <!-- Input Transmisi -->
+            <div class="input-group">
+                <label>Transmisi</label>
+                <select v-model="transmission">
+                    <option value="A/T">Automatic (A/T)</option>
+                    <option value="M/T">Manual (M/T)</option>
+                    <option value="CVT">CVT</option>
+                    <option value="8-Speed A/T">8-Speed A/T</option>
+                </select>
+            </div>
+
+            <!-- Input Tahun -->
+            <div class="input-group">
+                <label>Tahun Kendaraan</label>
+                <input type="number" v-model="tahun" placeholder="Contoh: 2022">
+            </div>
+
+            <!-- Input Milage -->
+            <div class="input-group">
+                <label>Jarak Tempuh (Milage)</label>
+                <div class="relative">
+                    <input type="number" v-model="milage" placeholder="Contoh: 5500">
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                        <span class="text-slate-400 font-medium text-sm">Mil</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tombol Prediksi -->
+            <button @click="prediksi" :disabled="isLoading" class="btn-primary mt-4">
+                <span v-if="isLoading"><span class="spinner"></span> Menghitung...</span>
+                <span v-else>Analisis Harga</span>
+            </button>
+        </div>
+
+        <!-- Area Hasil Prediksi -->
+        <transition name="fade">
+            <div v-if="hasil !== null" class="mt-6 p-6 bg-slate-50 border border-slate-100 rounded-2xl text-center shadow-inner">
+                <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Estimasi Harga Pasar</p>
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+                    {{ formatRupiah(hasil) }}
+                </h2>
+                <p class="text-xs text-slate-400 mt-2">*Berdasarkan model Machine Learning (model_mobil.pth)</p>
+            </div>
+        </transition>
+        
+        <!-- Footer -->
+        <div class="mt-6 text-center">
+            <p class="text-xs text-slate-400">Powered by VueJS & Machine Learning</p>
+        </div>
+    </div>
+
+    <!-- Panggil file app.js -->
+    <script src="app.js"></script>
+</body>
+</html>
